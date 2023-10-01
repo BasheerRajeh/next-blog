@@ -3,8 +3,12 @@ import { Inter } from 'next/font/google'
 
 import './globals.css'
 import { site } from '@/config/site'
+import { cn } from '@/lib/utils'
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({
+    variable: '--font-inter',
+    subsets: ['latin'],
+})
 
 export const metadata: Metadata = {
     title: {
@@ -61,7 +65,7 @@ export default function RootLayout({
     return (
         <html
             lang='en'
-            className='dark'
+            className={cn(inter.variable, 'dark scroll-smooth')}
         >
             <body className={inter.className}>{children}</body>
         </html>
