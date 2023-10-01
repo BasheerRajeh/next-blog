@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 
-import './globals.css'
+import '@/public/styles/globals.css'
 import { site } from '@/config/site'
 import { cn } from '@/lib/utils'
 
