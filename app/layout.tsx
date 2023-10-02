@@ -67,7 +67,9 @@ export default function RootLayout({
             lang='en'
             className={cn(inter.variable, 'dark scroll-smooth')}
         >
-            <body className={inter.className}>{children}</body>
+            <body className={inter.className}>
+                <main className='h-screen'>{children}</main>
+            </body>
         </html>
     )
 }
