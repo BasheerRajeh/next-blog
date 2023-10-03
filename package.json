@@ -11,7 +11,7 @@
         "build": "next build",
         "build-storybook": "storybook build",
         "dev": "next dev",
-        "format": "prettier -w .",
+        "format": "prettier -c .",
         "lint": "eslint .",
         "lint:fix": "eslint --fix .",
         "prepare": "husky install",
@@ -20,6 +20,7 @@
         "type-check": "tsc --noEmit"
     },
     "dependencies": {
+        "@radix-ui/react-slot": "^1.0.2",
         "@tailwindcss/typography": "^0.5.10",
         "@types/node": "20.6.2",
         "@types/react": "18.2.22",

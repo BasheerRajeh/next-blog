@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 
-import '@/public/styles/globals.css'
+import { Header } from '@/components/header'
 import { site } from '@/config/site'
 import { cn } from '@/lib/utils'
 
@@ -67,7 +67,12 @@ export default function RootLayout({
             lang='en'
             className={cn(inter.variable, 'dark scroll-smooth')}
         >
-            <body className={inter.className}>{children}</body>
+            <body className={inter.className}>
+                <Header className='fixed inset-x-0 top-0 z-40' />
+                <main className='h-[calc(100vh-100px)] min-h-[calc(100vh-100px)] pt-24'>
+                    {children}
+                </main>
+            </body>
         </html>
     )
 }
