@@ -1,30 +1,29 @@
-import Image from 'next/image'
+import type { Metadata } from 'next'
+import { redirect } from 'next/navigation'
 
-import { Button } from '@/components/ui/button'
-import googleSrc from '@/public/images/google.png'
+import { getCurrentUser } from '@/lib/get-current-user'
 
-const LoginPage = () => {
-    return (
-        <div className='flex h-full w-full flex-col items-center justify-center gap-3 p-4'>
-            <div>
-                <h1 className='text-2xl font-semibold'>Login</h1>
+import LoginButton from './login-button'
+
+export const metadata: Metadata = {
+    title: 'Login Page',
+    description: 'Login to One Blog',
+}
+
+const LoginPage = async () => {
+    const user = await getCurrentUser()
+
+    if (user) redirect('/')
+    else
+        return (
+            <div className='flex h-full w-full flex-col items-center justify-center gap-3 p-4'>
+                <div>
+                    <h1 className='text-2xl font-semibold'>Login</h1>
+                </div>
+                <p className='text-muted-foreground'>to continue to Blog</p>
+                <LoginButton />
             </div>
-            <p className='text-muted-foreground'>to continue to Blog</p>
-            <Button
-                className='mt-4 flex items-center gap-2'
-                variant='outline'
-            >
-                <Image
-                    src={googleSrc}
-                    alt=''
-                    width={16}
-                    height={16}
-                    draggable={false}
-                />
-                Continue with Google
-            </Button>
-        </div>
-    )
+        )
 }
 
 export default LoginPage
