@@ -1,15 +1,19 @@
 import { PenSquare } from 'lucide-react'
 import Link from 'next/link'
 
-import { Button, buttonVariants } from '@/components/ui/button'
+import { Button } from '@/components/ui/button'
+import { getCurrentUser } from '@/lib/get-current-user'
 import { cn } from '@/lib/utils'
 
 import { Logo } from './logo'
+import UserControl from './user-control'
 
-export const Header: React.FC<React.HTMLProps<HTMLDivElement>> = ({
+export const Header: React.FC<React.HTMLProps<HTMLDivElement>> = async ({
     className,
     ...props
 }) => {
+    const user = await getCurrentUser()
+
     return (
         <header
             className={cn(
@@ -30,19 +34,16 @@ export const Header: React.FC<React.HTMLProps<HTMLDivElement>> = ({
                     <span className='text-xl font-bold'>Blog</span>
                 </Link>
                 <div className='flex items-center gap-4'>
-                    <Button variant='outline'>
-                        <PenSquare
-                            size={16}
-                            className='mr-2'
-                        />
-                        Post
-                    </Button>
-                    <Link
-                        href='/login'
-                        className={buttonVariants()}
-                    >
-                        Login
-                    </Link>
+                    {user && (
+                        <Button variant='outline'>
+                            <PenSquare
+                                size={16}
+                                className='mr-2'
+                            />
+                            Post
+                        </Button>
+                    )}
+                    <UserControl user={user} />
                 </div>
             </div>
         </header>
