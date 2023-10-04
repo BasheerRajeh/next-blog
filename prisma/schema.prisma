@@ -46,6 +46,37 @@ model User {
     image          String?
     accounts       Account[]
     sessions       Session[]
+    posts          Post[]
     createdAt      DateTime  @default(now())
     updatedAt      DateTime  @updatedAt
+    likes          Like[]
+}
+
+enum Visibility {
+    PUBLIC
+    PRIVATE
+}
+
+model Post {
+    id          String   @id @default(auto()) @map("_id") @db.ObjectId
+    authorId    String   @db.ObjectId
+    title       String
+    description String?
+    content     String?
+    published   Boolean  @default(false)
+    createAt    DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+
+    author     User       @relation(fields: [authorId], references: [id], onDelete: Cascade)
+    visibility Visibility @default(PUBLIC)
+    userId     String?    @db.ObjectId
+    likes      Like[]
+}
+
+model Like {
+    id     String @id @default(auto()) @map("_id") @db.ObjectId
+    postId String @db.ObjectId
+    userId String @db.ObjectId
+    post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
+    user   User   @relation(fields: [postId], references: [id], onDelete: Cascade)
 }
