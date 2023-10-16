@@ -1,11 +1,10 @@
-import { PenSquare } from 'lucide-react'
 import Link from 'next/link'
 
-import { Button } from '@/components/ui/button'
 import { getCurrentUser } from '@/lib/get-current-user'
 import { cn } from '@/lib/utils'
 
 import { Logo } from './logo'
+import NewPostWrite from './new-post-button'
 import UserControl from './user-control'
 
 export const Header: React.FC<React.HTMLProps<HTMLDivElement>> = async ({
@@ -34,15 +33,7 @@ export const Header: React.FC<React.HTMLProps<HTMLDivElement>> = async ({
                     <span className='text-xl font-bold'>Blog</span>
                 </Link>
                 <div className='flex items-center gap-4'>
-                    {user && (
-                        <Button variant='outline'>
-                            <PenSquare
-                                size={16}
-                                className='mr-2'
-                            />
-                            Post
-                        </Button>
-                    )}
+                    {user && <NewPostWrite />}
                     <UserControl user={user} />
                 </div>
             </div>

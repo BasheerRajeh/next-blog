@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 
 import '@/public/styles/globals.css'
 import { Header } from '@/components/header'
+import Toaster from '@/components/toaster'
 import { site } from '@/config/site'
 import { cn } from '@/lib/utils'
 
@@ -70,9 +71,10 @@ export default function RootLayout({
         >
             <body className={inter.className}>
                 <Header className='fixed inset-x-0 top-0 z-40' />
-                <main className='h-[calc(100vh-100px)] min-h-[calc(100vh-100px)] pt-24'>
+                <main className='mx-auto h-[calc(100vh-100px)] min-h-[calc(100vh-100px)] max-w-4xl px-8 pb-16 pt-24'>
                     {children}
                 </main>
+                <Toaster />
             </body>
         </html>
     )
