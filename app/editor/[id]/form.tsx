@@ -7,6 +7,7 @@ import { useState } from 'react'
 import { toast } from 'react-hot-toast'
 
 import { savePost, saveVisibility } from '@/app/actions/post'
+import BackButton from '@/components/back-button'
 import Editor from '@/components/editor'
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
@@ -82,7 +83,7 @@ const EditorForm: React.FC<EditorFormProps> = ({ post }) => {
     return (
         <>
             <div className='flex items-center justify-between'>
-                {/* <Back /> */}
+                <BackButton />
                 {post.published && (
                     <Dialog
                         open={open}

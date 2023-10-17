@@ -7,7 +7,9 @@ import { Logo } from './logo'
 import NewPostWrite from './new-post-button'
 import UserControl from './user-control'
 
-export const Header: React.FC<React.HTMLProps<HTMLDivElement>> = async ({
+type HeaderProps = React.ComponentPropsWithRef<'header'>
+
+export const Header: React.FC<HeaderProps> = async ({
     className,
     ...props
 }) => {
