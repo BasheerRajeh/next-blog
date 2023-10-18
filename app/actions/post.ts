@@ -91,3 +91,37 @@ export const saveVisibility = async (id: string, visibility: Visibility) => {
         handleError()
     }
 }
+
+export const getPostById = async (id: string, published = true) => {
+    try {
+        return await db.post.findUnique({
+            where: {
+                id,
+                published,
+            },
+            select: {
+                id: true,
+                title: true,
+                description: true,
+                content: true,
+                createAt: true,
+                author: {
+                    select: {
+                        id: true,
+                        name: true,
+                        image: true,
+                    },
+                },
+                likes: {
+                    select: {
+                        id: true,
+                        userId: true,
+                        postId: true,
+                    },
+                },
+            },
+        })
+    } catch {
+        handleError()
+    }
+}
