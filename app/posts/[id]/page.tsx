@@ -38,7 +38,7 @@ const PostPage: React.FC<PostPageProps> = async ({ params: { id } }) => {
             </div>
             <Link
                 href={`/users/${author.id}`}
-                className='flex items-center gap-3'
+                className='flex w-fit items-center gap-3'
             >
                 <UserAvatar
                     width={40}
