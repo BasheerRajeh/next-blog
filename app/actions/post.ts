@@ -125,3 +125,53 @@ export const getPostById = async (id: string, published = true) => {
         handleError()
     }
 }
+
+export const likePost = async (id: string) => {
+    const user = await getCurrentUser()
+
+    if (!user) throw new Error('Please log in to like this post')
+
+    try {
+        await db.like.create({
+            data: {
+                postId: id,
+                userId: user.id,
+            },
+        })
+
+        revalidatePath(`/posts/${id}`)
+    } catch {
+        revalidatePath(`/posts/${id}`)
+        handleError()
+    }
+}
+
+export const unlikePost = async (id: string) => {
+    const user = await getCurrentUser()
+
+    if (!user) throw new Error('Please log in to unlike this post.')
+
+    try {
+        const like = await db.like.findFirst({
+            where: {
+                postId: id,
+                userId: user.id,
+            },
+            select: {
+                id: true,
+            },
+        })
+
+        if (!like) throw new Error('You have not liked this post.')
+
+        await db.like.delete({
+            where: {
+                id: like.id,
+            },
+        })
+
+        revalidatePath(`/posts/${id}`)
+    } catch {
+        handleError()
+    }
+}

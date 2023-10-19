@@ -26,6 +26,8 @@ export const PostList = async () => {
             likes: {
                 select: {
                     id: true,
+                    userId: true,
+                    postId: true,
                 },
             },
         },

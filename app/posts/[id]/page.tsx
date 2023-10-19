@@ -6,7 +6,10 @@ import BackButton from '@/components/back-button'
 import MDX from '@/components/mdx'
 import UserAvatar from '@/components/post/user-avatar'
 import { formatPostDate } from '@/lib/format-post-date'
+import { getCurrentUser } from '@/lib/get-current-user'
 import { getMdxSource } from '@/lib/get-mdx-source'
+
+import LikeButton from './like-button'
 
 type PostPageProps = {
     params: {
@@ -15,11 +18,13 @@ type PostPageProps = {
 }
 
 const PostPage: React.FC<PostPageProps> = async ({ params: { id } }) => {
+    const user = await getCurrentUser()
+
     const post = await getPostById(id)
 
     if (!post) notFound()
 
-    const { title, description, content, author, createAt } = post
+    const { title, description, content, likes, author, createAt } = post
     const source = await getMdxSource(content)
 
     return (
@@ -50,6 +55,11 @@ const PostPage: React.FC<PostPageProps> = async ({ params: { id } }) => {
                 </div>
             </Link>
             <MDX source={source} />
+            <LikeButton
+                likes={likes}
+                postId={id}
+                user={user}
+            />
         </>
     )
 }

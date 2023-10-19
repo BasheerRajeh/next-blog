@@ -3,6 +3,7 @@ import { Heart } from 'lucide-react'
 import Link from 'next/link'
 
 import { formatPostDate } from '@/lib/format-post-date'
+import { cn } from '@/lib/utils'
 
 import UserAvatar from './user-avatar'
 
@@ -10,15 +11,21 @@ type PostCardProps = {
     post: Pick<
         Post,
         'id' | 'title' | 'description' | 'published' | 'createAt'
-    > & { likes: Array<Pick<Like, 'id'>> } & {
+    > & { likes: Array<Pick<Like, 'id' | 'userId' | 'postId'>> } & {
         author: Pick<User, 'id' | 'image' | 'name'>
     }
     user?: User | null
     showAuthor?: boolean
 }
 
-const PostCard: React.FC<PostCardProps> = ({ post, showAuthor = true }) => {
+const PostCard: React.FC<PostCardProps> = ({
+    post,
+    user,
+    showAuthor = true,
+}) => {
     const { id, title, description, published, likes, createAt, author } = post
+
+    const isUserLiked = likes.some((like) => like.userId === user?.id)
     return (
         <article className='flex items-start justify-between border-b px-1 py-4'>
             <div className='flex w-full flex-col gap-4'>
@@ -50,7 +57,13 @@ const PostCard: React.FC<PostCardProps> = ({ post, showAuthor = true }) => {
                 </Link>
                 <div className='mt-4 flex items-center justify-between text-sm'>
                     <div className='flex items-center gap-2'>
-                        <Heart size={20} />
+                        <Heart
+                            size={20}
+                            className={cn(
+                                isUserLiked &&
+                                    'fill-red-500 text-red-500 transition-all',
+                            )}
+                        />
                         {likes.length}
                     </div>
                     <span className='text-xs'>{formatPostDate(createAt)}</span>
