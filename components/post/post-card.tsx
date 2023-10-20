@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { formatPostDate } from '@/lib/format-post-date'
 import { cn } from '@/lib/utils'
 
+import Controls from './controls'
 import UserAvatar from './user-avatar'
 
 type PostCardProps = {
@@ -69,6 +70,12 @@ const PostCard: React.FC<PostCardProps> = ({
                     <span className='text-xs'>{formatPostDate(createAt)}</span>
                 </div>
             </div>
+            <Controls
+                id={id}
+                user={user}
+                authorId={author.id}
+                postTitle={title}
+            />
         </article>
     )
 }

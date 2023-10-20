@@ -175,3 +175,22 @@ export const unlikePost = async (id: string) => {
         handleError()
     }
 }
+
+export const deletePost = async (id: string) => {
+    const user = await getCurrentUser()
+
+    if (!user) throw new Error(NOT_LOGGED_IN_ERROR)
+
+    try {
+        await db.post.delete({
+            where: {
+                id,
+                authorId: user.id,
+            },
+        })
+
+        revalidatePath('/me/posts')
+    } catch {
+        handleError()
+    }
+}
