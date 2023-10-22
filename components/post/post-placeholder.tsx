@@ -1,13 +1,15 @@
 import { Skeleton } from '@/components/ui/skeleton'
 
-const PostPlaceholder = () => {
+const PostPlaceholder = ({ showAuthor = true }) => {
     return (
         <div className='flex items-start justify-between border-b px-1 py-4'>
             <div className='flex w-full flex-col gap-4'>
-                <div className='flex items-center gap-1'>
-                    <Skeleton className='h-6 w-6 rounded-full' />
-                    <Skeleton className='h-6 w-20' />
-                </div>
+                {showAuthor && (
+                    <div className='flex items-center gap-1'>
+                        <Skeleton className='h-6 w-6 rounded-full' />
+                        <Skeleton className='h-6 w-20' />
+                    </div>
+                )}
                 <div className='block space-y-2'>
                     <Skeleton className='h-7 max-w-xs' />
                     <Skeleton className='h-16 max-w-lg' />

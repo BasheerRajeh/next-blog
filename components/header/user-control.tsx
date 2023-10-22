@@ -61,6 +61,10 @@ const UserControl: React.FC<UserControlProps> = ({ user }) => {
                     </Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
+                <DropdownMenuItem asChild>
+                    <Link href='/me/posts'>Posts</Link>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={() => signOut()}>
                     <LogOutIcon className='mr-2 h-4 w-4' />
                     <span>Log out</span>

@@ -30,6 +30,7 @@ type ControlsProps = {
     user: User | null | undefined
     authorId: string
     postTitle: string
+    onDelete: (postId: string) => void
 }
 
 const Controls: React.FC<ControlsProps> = ({
@@ -37,11 +38,13 @@ const Controls: React.FC<ControlsProps> = ({
     user,
     authorId,
     postTitle,
+    onDelete,
 }) => {
     const [open, setOpen] = useState(false)
 
     const handleDelete = async () => {
         try {
+            onDelete(id)
             await deletePost(id)
             toast.success('Post deleted')
         } catch (error) {

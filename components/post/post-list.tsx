@@ -1,52 +1,42 @@
-import db from '@/lib/db'
-import { getCurrentUser } from '@/lib/get-current-user'
+'use client'
 
-import PostCard from './post-card'
+import { User } from '@prisma/client'
+import React, { experimental_useOptimistic as useOptimistic } from 'react'
 
-export const PostList = async () => {
-    const user = await getCurrentUser()
-    const posts = await db.post.findMany({
-        where: {
-            published: true,
-            visibility: 'PUBLIC',
-        },
-        select: {
-            id: true,
-            title: true,
-            description: true,
-            createAt: true,
-            published: true,
-            author: {
-                select: {
-                    name: true,
-                    image: true,
-                    id: true,
-                },
-            },
-            likes: {
-                select: {
-                    id: true,
-                    userId: true,
-                    postId: true,
-                },
-            },
-        },
-        orderBy: {
-            createAt: 'desc',
-        },
-    })
+import PostCard, { PostCardProps } from './post-card'
 
-    if (posts.length === 0) {
+type PostListProps = {
+    posts: Array<PostCardProps['post']> | undefined
+    user: User
+    showAuthor?: boolean
+}
+
+export const PostList: React.FC<PostListProps> = ({
+    posts,
+    user,
+    showAuthor = true,
+}) => {
+    const [optimisticPosts, setOptimisticPosts] = useOptimistic(posts)
+
+    if (!posts || !optimisticPosts || (posts && posts.length === 0)) {
         return <div className='text-center'>No posts yet.</div>
+    }
+
+    const handleDelete = (postId: string) => {
+        setOptimisticPosts((prev) => {
+            return prev?.filter((post) => post.id !== postId)
+        })
     }
 
     return (
         <div>
-            {posts.map((post) => (
+            {optimisticPosts.map((post) => (
                 <PostCard
                     key={post.id}
                     post={post}
                     user={user}
+                    showAuthor={showAuthor}
+                    onDelete={handleDelete}
                 />
             ))}
         </div>

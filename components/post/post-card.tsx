@@ -1,3 +1,5 @@
+'use client'
+
 import { Like, Post, User } from '@prisma/client'
 import { Heart } from 'lucide-react'
 import Link from 'next/link'
@@ -8,7 +10,7 @@ import { cn } from '@/lib/utils'
 import Controls from './controls'
 import UserAvatar from './user-avatar'
 
-type PostCardProps = {
+export type PostCardProps = {
     post: Pick<
         Post,
         'id' | 'title' | 'description' | 'published' | 'createAt'
@@ -17,12 +19,14 @@ type PostCardProps = {
     }
     user?: User | null
     showAuthor?: boolean
+    onDelete: (postId: string) => void
 }
 
 const PostCard: React.FC<PostCardProps> = ({
     post,
     user,
     showAuthor = true,
+    onDelete,
 }) => {
     const { id, title, description, published, likes, createAt, author } = post
 
@@ -75,6 +79,7 @@ const PostCard: React.FC<PostCardProps> = ({
                 user={user}
                 authorId={author.id}
                 postTitle={title}
+                onDelete={onDelete}
             />
         </article>
     )

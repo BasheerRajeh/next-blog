@@ -194,3 +194,81 @@ export const deletePost = async (id: string) => {
         handleError()
     }
 }
+
+export const getAllPosts = async (visibility: Visibility) => {
+    try {
+        return await db.post.findMany({
+            where: {
+                published: true,
+                visibility,
+            },
+            select: {
+                id: true,
+                title: true,
+                description: true,
+                createAt: true,
+                published: true,
+                author: {
+                    select: {
+                        name: true,
+                        image: true,
+                        id: true,
+                    },
+                },
+                likes: {
+                    select: {
+                        id: true,
+                        userId: true,
+                        postId: true,
+                    },
+                },
+            },
+            orderBy: {
+                createAt: 'desc',
+            },
+        })
+    } catch {
+        handleError()
+    }
+}
+
+export const getPersonalPosts = async () => {
+    const user = await getCurrentUser()
+
+    if (!user) throw new Error(NOT_LOGGED_IN_ERROR)
+
+    try {
+        return await db.post.findMany({
+            where: {
+                authorId: user.id,
+            },
+            select: {
+                id: true,
+                title: true,
+                description: true,
+                published: true,
+                createAt: true,
+                likes: {
+                    select: {
+                        id: true,
+                        userId: true,
+                        postId: true,
+                    },
+                },
+                author: {
+                    select: {
+                        name: true,
+                        image: true,
+                        id: true,
+                    },
+                },
+            },
+            orderBy: {
+                createAt: 'desc',
+            },
+        })
+    } catch {
+        handleError()
+        return []
+    }
+}
