@@ -1,9 +1,14 @@
+import { Metadata } from 'next'
 import { notFound, redirect } from 'next/navigation'
 
 import db from '@/lib/db'
 import { getCurrentUser } from '@/lib/get-current-user'
 
 import EditorForm from './form'
+
+export const metadata: Metadata = {
+    title: 'Editor',
+}
 
 type EditorPageProps = {
     params: {
