@@ -50,6 +50,7 @@ model User {
     createdAt      DateTime  @default(now())
     updatedAt      DateTime  @updatedAt
     likes          Like[]
+    bio            String?
 }
 
 enum Visibility {

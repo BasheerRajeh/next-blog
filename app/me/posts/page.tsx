@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation'
 
-import { getPersonalPosts } from '@/app/actions/post'
+import { getPersonalPosts } from '@/app/actions'
 import PageHeader from '@/components/page-header'
 import { getCurrentUser } from '@/lib/get-current-user'
 

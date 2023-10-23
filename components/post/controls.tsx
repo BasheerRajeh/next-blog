@@ -6,7 +6,7 @@ import Link from 'next/link'
 import { useState } from 'react'
 import toast from 'react-hot-toast'
 
-import { deletePost } from '@/app/actions/post'
+import { deletePost } from '@/app/actions'
 import {
     AlertDialog,
     AlertDialogAction,

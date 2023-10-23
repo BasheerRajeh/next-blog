@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { toast } from 'react-hot-toast'
 
-import { savePost, saveVisibility } from '@/app/actions/post'
+import { savePost, saveVisibility } from '@/app/actions'
 import BackButton from '@/components/back-button'
 import Editor from '@/components/editor'
 import { Button } from '@/components/ui/button'

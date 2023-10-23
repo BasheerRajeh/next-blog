@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
-import { getPostById } from '@/app/actions/post'
+import { getPostById } from '@/app/actions'
 import BackButton from '@/components/back-button'
 import MDX from '@/components/mdx'
 import UserAvatar from '@/components/post/user-avatar'

@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import { useTransition } from 'react'
 import toast from 'react-hot-toast'
 
-import { createNewPost } from '@/app/actions/post'
+import { createNewPost } from '@/app/actions'
 import { Button } from '@/components/ui/button'
 
 const NewPostWrite = () => {

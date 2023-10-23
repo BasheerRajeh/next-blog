@@ -6,7 +6,7 @@ import { Heart } from 'lucide-react'
 import { experimental_useOptimistic as useOptimistic } from 'react'
 import toast from 'react-hot-toast'
 
-import { likePost, unlikePost } from '@/app/actions/post'
+import { likePost, unlikePost } from '@/app/actions'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 
