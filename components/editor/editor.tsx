@@ -46,7 +46,7 @@ const Editor: React.FC<EditorPros> = ({ options, onChange }) => {
             <EditorContent
                 editor={editor}
                 className={cn(
-                    'max-h-[350px] bg-background px-2 py-6',
+                    'min-h-[350px] bg-background px-2 py-6',
                     editor.isEditable && 'rounded-b border',
                 )}
             />

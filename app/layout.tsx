@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 
 import '@/public/styles/globals.css'
+import Footer from '@/components/footer'
 import { Header } from '@/components/header'
 import Toaster from '@/components/toaster'
 import { site } from '@/config/site'
@@ -89,11 +90,12 @@ export default function RootLayout({
             lang='en'
             className={cn(inter.variable, 'dark scroll-smooth')}
         >
-            <body className={inter.className}>
+            <body className='font-default'>
                 <Header className='fixed inset-x-0 top-0 z-40' />
-                <main className='mx-auto h-[calc(100vh-100px)] min-h-[calc(100vh-100px)] max-w-4xl px-8 pb-16 pt-24'>
+                <main className='mx-auto min-h-[calc(100vh-68px)] max-w-4xl px-8 pb-16 pt-24'>
                     {children}
                 </main>
+                <Footer />
                 <Toaster />
             </body>
         </html>
