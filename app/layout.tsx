@@ -36,6 +36,17 @@ export const metadata: Metadata = {
         creator: 'BasheerRajeh',
     },
     keywords: site.keywords,
+    themeColor: [
+        {
+            media: '(prefers-color-scheme: light)',
+            color: '#ffffff',
+        },
+        {
+            media: '(prefers-color-scheme: dark)',
+            color: '#000000',
+        },
+    ],
+    creator: 'BasheerRajeh',
     openGraph: {
         url: `${site.url}`,
         type: 'website',
@@ -43,6 +54,15 @@ export const metadata: Metadata = {
         siteName: site.title,
         description: site.description,
         locale: 'en-US',
+        images: [
+            {
+                url: '/images/cover.png',
+                width: 1200,
+                height: 630,
+                alt: site.description,
+                type: 'image/png',
+            },
+        ],
     },
     manifest: '/favicon/site.webmanifest',
     icons: {

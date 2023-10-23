@@ -1,15 +1,44 @@
 import { File } from 'lucide-react'
+import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
 import { PostList } from '@/components/post'
 import UserAvatar from '@/components/post/user-avatar'
 import { Separator } from '@/components/ui/separator'
+import { site } from '@/config/site'
 import db from '@/lib/db'
 import { getCurrentUser } from '@/lib/get-current-user'
 
 type UserPageProps = {
     params: {
         id: string
+    }
+}
+
+export const generateMetadata = async (
+    props: UserPageProps,
+): Promise<Metadata> => {
+    const { params } = props
+    const id = params.id
+    const user = await db.user.findUnique({
+        where: {
+            id,
+        },
+    })
+
+    if (!user) {
+        return {}
+    }
+
+    return {
+        title: user.name || user.id,
+        description: user.bio,
+        openGraph: {
+            title: user.name || user.id,
+            description: user.bio || undefined,
+            type: 'profile',
+            url: `${site.url}/users/${user.id}`,
+        },
     }
 }
 

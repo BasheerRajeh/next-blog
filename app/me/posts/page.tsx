@@ -1,3 +1,4 @@
+import { Metadata } from 'next'
 import { redirect } from 'next/navigation'
 
 import { getPersonalPosts } from '@/app/actions'
@@ -6,6 +7,9 @@ import { getCurrentUser } from '@/lib/get-current-user'
 
 import Posts from './posts'
 
+export const metadata: Metadata = {
+    title: 'Your posts',
+}
 const PostsPage = async () => {
     const user = await getCurrentUser()
 

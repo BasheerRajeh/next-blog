@@ -1,3 +1,4 @@
+import { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
@@ -5,6 +6,8 @@ import { getPostById } from '@/app/actions'
 import BackButton from '@/components/back-button'
 import MDX from '@/components/mdx'
 import UserAvatar from '@/components/post/user-avatar'
+import { site } from '@/config/site'
+import db from '@/lib/db'
 import { formatPostDate } from '@/lib/format-post-date'
 import { getCurrentUser } from '@/lib/get-current-user'
 import { getMdxSource } from '@/lib/get-mdx-source'
@@ -14,6 +17,58 @@ import LikeButton from './like-button'
 type PostPageProps = {
     params: {
         id: string
+    }
+}
+
+export const generateMetadata = async (
+    props: PostPageProps,
+): Promise<Metadata> => {
+    const { params } = props
+    const post = await db.post.findUnique({
+        where: {
+            id: params.id,
+        },
+        select: {
+            id: true,
+            title: true,
+            description: true,
+            createAt: true,
+            updatedAt: true,
+            authorId: true,
+            author: {
+                select: {
+                    name: true,
+                },
+            },
+        },
+    })
+
+    if (!post) return {}
+
+    const ISOPublishedTime = new Date(post.createAt).toISOString()
+    const ISOModifiedTime = new Date(post.updatedAt).toISOString()
+
+    return {
+        title: post.title,
+        description: post.description,
+        openGraph: {
+            url: `${site.url}/posts/${post.id}`,
+            type: 'article',
+            title: post.title,
+            description: post.description || undefined,
+            publishedTime: ISOPublishedTime,
+            modifiedTime: ISOModifiedTime,
+            authors: `${site.url}/users/${post.authorId}`,
+            images: [
+                {
+                    url: `${site.url}/api/og?title=${post.title}&author=${post.author.name}`,
+                    width: 1200,
+                    height: 630,
+                    alt: post.title,
+                    type: 'image/png',
+                },
+            ],
+        },
     }
 }
 
