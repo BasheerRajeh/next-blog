@@ -12,11 +12,12 @@ type Site = {
 
 export const site: Site = {
     url: 'https://one-blog-next.vercel.app/',
-    title: 'Next Project Template',
-    name: 'TNext',
-    keywords: ['template', 'next-template', 'full-stack next'],
-    titleTemplate: '',
-    description: '',
+    title: 'Blogs',
+    name: 'Rajeh',
+    keywords: ['blog', 'one-blog', 'full-stack blog', 'nextjs blog'],
+    titleTemplate: '- One Blog',
+    description:
+        'Welcome to our dynamic blogging platform, where you can sign in, share your thoughts, and engage with a vibrant community of bloggers. Effortlessly manage your account, craft compelling articles, and explore the world of online content creation. Join us to make your mark in the blogosphere.',
     favicons: [
         {
             rel: 'icon',
