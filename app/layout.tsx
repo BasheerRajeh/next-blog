@@ -5,6 +5,7 @@ import '@/public/styles/globals.css'
 import Footer from '@/components/footer'
 import { Header } from '@/components/header'
 import Toaster from '@/components/toaster'
+import { ScrollArea } from '@/components/ui/scroll-area'
 import { site } from '@/config/site'
 import { cn } from '@/lib/utils'
 
@@ -93,9 +94,11 @@ export default function RootLayout({
         >
             <body className='font-default'>
                 <Header className='fixed inset-x-0 top-0 z-40' />
-                <main className='mx-auto min-h-[calc(100vh-68px)] max-w-4xl px-8 pb-16 pt-24'>
-                    {children}
-                </main>
+                <ScrollArea className='h-[calc(100vh-68px)]'>
+                    <main className='mx-auto max-w-4xl px-8 pb-16 pt-24'>
+                        {children}
+                    </main>
+                </ScrollArea>
                 <Footer />
                 <Toaster />
             </body>
